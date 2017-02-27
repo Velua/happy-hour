@@ -46,8 +46,6 @@ def display_bars(bars, on_Startup=false)
   end
 end
 
-system('clear')
-
 def introduction(bars)
   time = Time.now
   current_time = time.strftime("%H:%M:%S")
@@ -59,9 +57,9 @@ def introduction(bars)
   display_bars(bars_available_now, on_Startup=true)
 end
 
-
+system('clear')
 introduction(bars)
-while loop do
+loop do
   puts "Want to specify an hour? 24 hour - e.g. 7:00pm enter only '19'"
   puts "Enter 'q' to quit"
   asked_hour = gets.chomp
