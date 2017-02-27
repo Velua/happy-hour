@@ -1,14 +1,19 @@
-bars = [
-  { :name => 'Charlies Bar', :address => '71 Hardware Lane Melbourne', :happy_hour_start => '17' },
-  { :name => 'Equinox Resturant Bar', :address => 'Elizabeth Street', :happy_hour_start => '18' },
-  { :name => 'Asian Beer Cafe', :address => '211 La Trobe St Melbourne', :happy_hour_start => '17' },
-  { :name => 'Blue Moon Bar', :address => '380 Russell Street', :happy_hour_start => '19' },
-  { :name => 'The Duke Of Wellington', :address => '146 Flinders Street', :happy_hour_start => '17' }
-]
+require 'open-uri'
+require 'json'
 
+# Download bars catalog from JSON file hosted on GitHub
+puts "Downloading data.."
+database_url = "https://raw.githubusercontent.com/Velua/happy-hour/master/bars.json"
+result = JSON.parse(open(database_url).read, {:symbolize_names => true})
+bars = result[:bars]
+
+
+# Work out the current time in order to look up any bars with happy hour on right now
 time = Time.now
 current_hour = time.strftime("%H")
 
+
+# Returns bars with happy hour on
 def get_happy_hours(bars, the_hour = Time.now.strftime("%H"))
   # Empty array of Bars with happy hour on
   happy_hours = []
